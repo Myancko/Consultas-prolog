@@ -7,6 +7,8 @@ prolog_file = "cute.pl"
 prolog = Prolog()
 prolog.consult(prolog_file)
 
+print(dir(prolog),  '><><')
+
 class Interface:
     def __init__(self, root):
         self.root = root
@@ -45,20 +47,25 @@ class Interface:
         self.quit_button.pack(pady=10)
 
     def custom_search(self):
-        name = self.name_entry.get()
-        query = self.name_entry.get()
-        result = prolog.query(f"{query}")
-        result_list = list(result)
+        query = self.name_entry.get().strip()  # Get the input and remove extra spaces
 
-        print(result, '<<<')
-        if result:
-            
-            if len(result_list) > 0:
-                messagebox.showinfo(f"Resultado ->", f"{result_list}")
-            else :
-                messagebox.showinfo("Resultado", "True")
-        else:
-            messagebox.showinfo("GG")
+        # Pass the query directly as it is (assuming the user types something like "girl('Maria')")
+        try:
+            result = list(prolog.query(query))  # Execute the query and convert to list
+
+            if result:  # Check if the list is not empty
+                # Print the result (assuming the query returns values)
+                print(result)
+                if len(result)>1:
+                    messagebox.showinfo("True", f"True\n{result}{len(result)}")
+                else:
+                    messagebox.showinfo("True", "True")
+            else:
+                messagebox.showinfo("False", "False")
+                
+        except Exception as e:
+            messagebox.showerror("Error", f"Query failed: {str(e)}")
+
     
     def search_girl(self):
         name = self.name_entry.get()

@@ -47,22 +47,17 @@ class Interface:
         self.quit_button.pack(pady=10)
 
     def custom_search(self):
-        query = self.name_entry.get().strip()  # Get the input and remove extra spaces
-
-        # Pass the query directly as it is (assuming the user types something like "girl('Maria')")
+        query = self.name_entry.get().strip()  
         try:
-            result = list(prolog.query(query))  # Execute the query and convert to list
-
-            if result:  # Check if the list is not empty
-                # Print the result (assuming the query returns values)
+            result = list(prolog.query(query))
+            if result:
                 print(result)
                 if len(result)>1:
                     messagebox.showinfo("True", f"True\n{result}{len(result)}")
                 else:
                     messagebox.showinfo("True", "True")
             else:
-                messagebox.showinfo("False", "False")
-                
+                messagebox.showinfo("False", "False")      
         except Exception as e:
             messagebox.showerror("Error", f"Query failed: {str(e)}")
 
